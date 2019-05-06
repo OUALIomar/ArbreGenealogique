@@ -105,17 +105,17 @@ public class Application {
      */
     private void initHeaderPanel() {
         
-        JLabel headerLabel = new JLabel("Welcome to the Family Tree Application", JLabel.LEFT);
+        JLabel headerLabel = new JLabel("Bienvenue a l'application d'arbre généalogique ", JLabel.LEFT);
         headerLabel.setFont(new Font("SansSerif", Font.PLAIN, 28));
 
-        JButton open = new JButton("Load Tree");
-        open.addActionListener(new openAction());
+        /*JButton open = new JButton("Load Tree");
+        open.addActionListener(new openAction());*/
 
-        JButton create = new JButton("Create New Tree");
+        JButton create = new JButton("nouveau arbre");
         create.addActionListener(new createTreeAction());
 
-        JButton saveTree = new JButton("Save Tree");
-        saveTree.addActionListener(new saveAction());
+        /*JButton saveTree = new JButton("Save Tree");
+        saveTree.addActionListener(new saveAction());*/
 
         JPanel headPanel = new JPanel();
         headPanel.setLayout(new GridBagLayout());
@@ -135,8 +135,8 @@ public class Application {
         //flow layout for the buttons (next to eachother)
         JPanel container = new JPanel(new FlowLayout(FlowLayout.LEFT));
         container.setOpaque(false);
-        container.add(open);
-        container.add(saveTree);
+        //container.add(open);
+        //container.add(saveTree);
         container.add(create);
 
         gbc.gridx = 0;
@@ -160,7 +160,7 @@ public class Application {
     }
 
     /**
-     * Initialize the menu bar which contains menu actions such as save load new and exit
+     * Initialize le menu bar 
      */
     private void initMenuBar() {
         JMenuBar menuBar;
@@ -1071,9 +1071,9 @@ public class Application {
 
         JPanel info = new JPanel();
         // if thr tree is empty add a root person otherwise add any relative 
-        JLabel memberInfoLabel = new JLabel("Add new root person", SwingConstants.LEFT);
+        JLabel memberInfoLabel = new JLabel("Ajouter la personne racine", SwingConstants.LEFT);
         if (member != null) {
-            memberInfoLabel.setText("Add Relative for " + member.toString());
+            memberInfoLabel.setText("Ajouter une personne dans l'arbre de  " + member.toString());
         }
 
         memberInfoLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
@@ -1177,11 +1177,11 @@ public class Application {
                     //if no root
                     if (member == null) {
                         currentArbreFamille.setRoot(newMember);
-                        editStatus("Root member added");
+                        editStatus("Racine ajoutée");
                     } else {
                         //add the relative 
                         member.addRelative((Personne.RelativeType) relativeTypeComboBox.getSelectedItem(), newMember);
-                        editStatus("New member added");
+                        editStatus("nouveau membre ajouté ");
                     }
                     displayTree(currentArbreFamille);
 
@@ -1202,23 +1202,21 @@ public class Application {
                 switch ((Personne.RelativeType) relativeTypeComboBox.getSelectedItem()) {//check for a match
                     case PERE:
                         genderComboBox.setSelectedItem(Personne.Sexe.HOMME);
-                        //maidennameTextField.setEditable(false);
+                        
                         lastnameTextField.setText(member.getPrenom());
                         break;
                     case MERE:
                         genderComboBox.setSelectedItem(Personne.Sexe.FEMME);
-                       // maidennameTextField.setEditable(true);
+                       
                         lastnameTextField.setText(member.getPrenom());
                         break;
                     case SPOUSE:
                         lastnameTextField.setText(member.getPrenom());
-                        //maidennameTextField.setEditable(true);
-//                        maidennameTextField.setEditable(true);
+                       
                         break;
                     case ENFANT:
                         lastnameTextField.setText(member.getPrenom());
-                        //maidennameTextField.setEditable(true);
-//                        maidennameTextField.setEditable(false);
+
                         break;
                 }
             }
@@ -1229,27 +1227,24 @@ public class Application {
                         .addComponent(relativeTypeLabel)
                         .addComponent(nameLabel)
                         .addComponent(lastnameLabel)
-                       // .addComponent(maidennameLabel)
+                      
                         .addComponent(genderLabel)
-                        //.addComponent(lifeDescriptionLabel)
+                        
                         .addComponent(personneinfo)
                         .addComponent(dateNaissanceLabel)
                         .addComponent(dateDecesLabel)
-                        //.addComponent(suburbLabel)
-                        //.addComponent(postcodeLabel)
+
                 )
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(nameTextField)
                         .addComponent(relativeTypeComboBox)
                         .addComponent(lastnameTextField)
-                        //.addComponent(maidennameTextField)
-                        //.addComponent(lifeDescriptionScrollPane1)
+
                         .addComponent(genderComboBox)
                         .addComponent(personneinfo)
                         .addComponent(dateNaissanceTextField)
                         .addComponent(dateDecesTextField)
-                        //.addComponent(suburbTextField)
-                        //.addComponent(postcodeTextField)
+
                 )
         );
 
@@ -1264,15 +1259,11 @@ public class Application {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(lastnameLabel)
                         .addComponent(lastnameTextField))
-                /*.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(maidennameLabel)
-                        .addComponent(maidennameTextField))*/
+
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(genderLabel)
                         .addComponent(genderComboBox))
-                /*.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(lifeDescriptionLabel)
-                        .addComponent(lifeDescriptionScrollPane1))*/
+
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(personneinfo))
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -1281,12 +1272,7 @@ public class Application {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(dateDecesLabel)
                         .addComponent(dateDecesTextField))
-                /*.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(suburbLabel)
-                        .addComponent(suburbTextField))
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(postcodeLabel)
-                        .addComponent(postcodeTextField))*/
+
         );
 
         JPanel container = new JPanel(new FlowLayout(FlowLayout.LEFT));
