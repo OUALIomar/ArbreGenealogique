@@ -20,28 +20,11 @@ import javax.swing.tree.*;
 
 
 /**
- * Tree GUI class to implement the familytree and family member objects.
- * Basically displays a way to interact with the family tree objects 
- * The GUI is separated into 4 main sections
- *  o The menu bar
- *   - contains the menubar options 
- *  o The header panel
- *   - contains the load, save and create new tree buttons 
- *  o The control panel 
- *   - contains the jTree representation of the tree object and details panel
- *     which contains the info for the current member or add and edit forms
- *  o The status panel
- *   - contains the status message
- * Assumptions:
- *  There has to a FamilyTree and FamilyMember classes
- *  The user will interact with this program with a mouse and keyboard
- *  English is the only supported language
- * @author Taaqif
  */
 public class Application {
 
     /**
-     * Creates ands sets up the gui interface as well as initializes all variables
+     * Crcreation de l'interface et initialisation des variables
      */
    
     private JFrame mainFrame;
@@ -62,7 +45,7 @@ public class Application {
 	        creerInterface();
 	    }
     /**
-     * Calls the initilising functions to get all the different panels set up
+     * Appels des differentes fonctions pour avoir les panels 
      */
     private void creerInterface() {
 
@@ -101,7 +84,7 @@ public class Application {
     }
 
     /**
-     * Initializes the header panel
+     * Initialisation du header
      */
     private void initHeaderPanel() {
         
@@ -146,9 +129,7 @@ public class Application {
         mainFrame.add(headPanel, BorderLayout.NORTH);
     }
 
-    /**
-     * Initializes the control panel where the bulk of data is showed 
-     */
+  
     private void initControlPanel() {
         controlPanel = new JPanel();
         
@@ -159,9 +140,6 @@ public class Application {
         mainFrame.add(controlPanel, BorderLayout.CENTER);
     }
 
-    /**
-     * Initialize le menu bar 
-     */
     private void initMenuBar() {
         JMenuBar menuBar;
         menuBar = new JMenuBar();
@@ -176,19 +154,19 @@ public class Application {
         fileMenu.add(newAction);
         newAction.addActionListener(new createTreeAction());
         
-        JMenuItem openAction = new JMenuItem("Open");
+        /*JMenuItem openAction = new JMenuItem("Open");
         fileMenu.add(openAction);
-        openAction.addActionListener(new openAction());
+        openAction.addActionListener(new openAction());*/
         
         fileMenu.addSeparator();
 
-        JMenuItem saveAction = new JMenuItem("Save");
+        /*JMenuItem saveAction = new JMenuItem("Save");
         fileMenu.add(saveAction);
-        saveAction.addActionListener(new saveAction());
+        saveAction.addActionListener(new saveAction());*/
         
-        JMenuItem saveAsAction = new JMenuItem("Save As");
+        /*JMenuItem saveAsAction = new JMenuItem("Save As");
         fileMenu.add(saveAsAction);
-        saveAsAction.addActionListener(new saveAsAction());
+        saveAsAction.addActionListener(new saveAsAction());*/
         
         
         JMenuItem exitAction = new JMenuItem("Exit");
@@ -206,10 +184,6 @@ public class Application {
         });       
     }
 
-    /**
-     * Itnitialises the status bar where information such as messages are 
-     * displayed to the user right at the botton of the screen
-     */
     private void initStatusBar() {
         JPanel statusPanel = new JPanel();
         statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
@@ -226,20 +200,11 @@ public class Application {
         statusPanel.add(statusLabel);
     }
 
-    /**
-     * Convenience method to edit the status. Basically sets the text of the 
-     * label inside the status bar
-     * @param status the message to display
-     */
+
     private void editStatus(String status) {
         statusLabel.setText(status);
     }
 
-    /**
-     * Action class that implements ActionListner
-     * Used to display the add relative function after clicking a button for a specified 
-     * family member 
-     */
     private class addRelativeAction implements ActionListener {
 
         private Personne member;
@@ -257,10 +222,7 @@ public class Application {
         }
     }
 
-    /**
-     * Edit member action which implements ActionListner to display
-     * the edit member form when a button is clicked for a specified family member
-     */
+
     private class editMemberAction implements ActionListener {
 
         private Personne member;
@@ -277,11 +239,7 @@ public class Application {
             displayEditMemberInfo(member);
         }
     }
- 
-    /**
-     * create tree action implements actionlistner to show the create tree form 
-     * for a specified family member 
-     */
+
     private class createTreeAction implements ActionListener {
 
         @Override
@@ -299,44 +257,9 @@ public class Application {
         }
     }
 
-    /**
-     * Open action implements actionlistner which invokes a jDialogBox such that
-     * the user can select a file to open within the application 
-     */
-    private class openAction implements ActionListener {
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (checkUserContinue()) {
-                JFileChooser jFileChooser = new JFileChooser();
-                //set file filters
-                jFileChooser.addChoosableFileFilter(new FileNameExtensionFilter("FamilyTree Files (*.ft)", "ft"));
-                jFileChooser.setAcceptAllFileFilterUsed(true);
-                
-                int result = jFileChooser.showOpenDialog(mainFrame);
-                //process jfilechooser result
-                if (result == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        //try to open the file, display the family tree
-                        openFile(jFileChooser.getSelectedFile());
-                        displayTree(currentArbreFamille);
-                        editStatus("File opened from: " + (jFileChooser.getSelectedFile().getAbsolutePath()));
-                    } catch (Exception j) {
-                        //error
-                        showErrorDialog(j);
-                        editStatus("Error: " + j.getMessage());
-                    }
-                }
-            }
+    
 
-        }
-    }
-
-    /**
-     * Convenience method to check if the tree is loaded. Used to check if the user
-     * wants to continue despite the tree being loaded
-     * @return true if the tree does not have a root or if the user wishes to continue
-     */
     private boolean checkUserContinue() {
         if (currentArbreFamille.hasRoot()) {
             int dialogResult = JOptionPane.showConfirmDialog(mainFrame, "Are you sure you wish to continue? Any unsaved changes will be lost", "Warning", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -345,10 +268,6 @@ public class Application {
         return true;
     }
 
-    /**
-     * displays the family tree object through a jTree.
-     * @param familyTree the family tree to display
-     */
     private void displayTree(ArbreFamille familyArbre) {
 
         //create the root node
@@ -458,9 +377,6 @@ public class Application {
         arbre.setSelectionPath(lastSelectedNode);
     }
 
-    /**
-     * cancels the edit by returning to displaymember info form
-     */
     private class cancelEditMemberAction implements ActionListener {
 
         Personne member;
@@ -476,93 +392,6 @@ public class Application {
         }
     }
 
-    /**
-     * if a file exists, propmpt to overwrite the saved file. If not, initiate save as action
-     */
-    private class saveAction implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                if (currentFile != null) {
-                    int dialogResult = JOptionPane.showConfirmDialog(mainFrame, "Would You Like to overwrite the current tree?", "Warning", JOptionPane.YES_NO_OPTION);
-                    if (dialogResult == JOptionPane.YES_OPTION) {
-                        //save the file
-                        saveToFile(currentFile);
-                        editStatus("File saved to: " + currentFile.getPath());
-                    }
-                } else {
-                    editStatus("File not loaded");
-                    //save as instead
-                    ActionListener listner = new saveAsAction();
-                    listner.actionPerformed(e);
-
-                }
-
-            } catch (Exception j) {
-                showErrorDialog(j);
-                editStatus("Error: "+ j.getMessage());
-            }
-        }
-    }
-
-    /**
-     * save the current tree as another file
-     */
-    private class saveAsAction implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JFileChooser jFileChooser = new JFileChooser() {
-                //check if file already exists, as to overwrite
-                @Override
-                public void approveSelection() {
-                    File selectedFile = getSelectedFile();
-                    if (selectedFile.exists() && getDialogType() == SAVE_DIALOG) {
-                        int result = JOptionPane.showConfirmDialog(this, "The file exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
-                        switch (result) {
-                            case JOptionPane.YES_OPTION:
-                                super.approveSelection();
-                                return;
-                            case JOptionPane.NO_OPTION:
-                                return;
-                            case JOptionPane.CLOSED_OPTION:
-                                return;
-                            case JOptionPane.CANCEL_OPTION:
-                                cancelSelection();
-                                return;
-                        }
-                    }
-                    super.approveSelection();
-                }
-            };
-            jFileChooser.setSelectedFile(new File("Family Tree.ft"));
-            //Set an extension filter, so the user sees other ft files
-            jFileChooser.setFileFilter(new FileNameExtensionFilter("FamilyTree Files (*.ft)", "ft"));
-            //propmpt to save
-            int result = jFileChooser.showSaveDialog(mainFrame);
-            if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-                    String filename = jFileChooser.getSelectedFile().toString();
-                    if (!filename.endsWith(".ft")) {
-                        filename += ".ft";
-                    }
-                    File file = new File(filename);
-
-                    saveToFile(file);
-                    displayTree(currentArbreFamille);
-                    editStatus("File saved to: " + (file.getAbsolutePath()));
-                } catch (Exception j) {
-                    showErrorDialog(j);
-                    editStatus("Error: "+ j.getMessage());
-                }
-            }
-        }
-    }
-
-    /**
-     * action invoked when the user selects a node from the tree
-     */
     private class treeSelectorAction implements TreeSelectionListener {
 
         public void valueChanged(TreeSelectionEvent event) {
@@ -583,59 +412,6 @@ public class Application {
         }
     }
 
-    /**
-     * Saves the object to a file by using serialization 
-     * @param file the file to save to
-     */
-    private void saveToFile(File file) {
-        // save the object to file
-        FileOutputStream fos = null;
-        ObjectOutputStream out = null;
-        try {
-            //set the output streams 
-            fos = new FileOutputStream(file);
-            out = new ObjectOutputStream(fos);
-            //write the object to the file
-            out.writeObject(this.currentArbreFamille);
-
-            out.close();
-            currentFile = file;
-        } catch (Exception ex) {
-            throw new IllegalArgumentException("File could not be saved");
-        }
-    }
-
-    /**
-     * Opens a file and load the data to the existing variables
-     * @param file the file to open
-     */
-    private void openFile(File file) {
-        // read the object from file
-        FileInputStream fis = null;
-        ObjectInputStream in = null;
-        ArbreFamille ft = null;
-        try {
-            //set the input streams 
-            fis = new FileInputStream(file);
-            in = new ObjectInputStream(fis);
-
-            //try to assign the object
-            ft = (ArbreFamille) in.readObject();
-            in.close();
-
-            currentArbreFamille.setRoot(ft.getRoot());
-            currentFile = file;
-            arbre = new JTree();
-        } catch (Exception ex) {
-            throw new IllegalArgumentException("File could not be read.");
-        }
-
-    }
-
-    /**
-     * Displays a specified member details 
-     * @param member the member details to display
-     */
     private void displayMemberInfo(Personne member) {
         arbre.setEnabled(true);
         
@@ -679,23 +455,6 @@ public class Application {
         JLabel genderLabel = new JLabel("Gender");
         JLabel genderComboBox = new JLabel(member.getSexe().toString());
         
-        //display the life description as a text area but style it as a label.
-        //handles long text inputs this way
-        /*JLabel lifeDescriptionLabel = new JLabel("Life Description");
-        JTextArea lifeDescriptionTextArea = new JTextArea(5, 20);
-        lifeDescriptionTextArea.setText(member.getLifeDescription());
-        lifeDescriptionTextArea.setWrapStyleWord(true);
-        lifeDescriptionTextArea.setLineWrap(true);
-        lifeDescriptionTextArea.setOpaque(false);
-        lifeDescriptionTextArea.setEditable(false);
-        lifeDescriptionTextArea.setFocusable(false);
-        lifeDescriptionTextArea.setBackground(UIManager.getColor("Label.background"));
-        lifeDescriptionTextArea.setFont(UIManager.getFont("Label.font"));
-        lifeDescriptionTextArea.setBorder(UIManager.getBorder("Label.border"));
-        JScrollPane lifeDescriptionScrollPane1 = new JScrollPane(lifeDescriptionTextArea);
-        lifeDescriptionScrollPane1.setBorder(UIManager.getBorder("Label.border"));
-*/
-//        JLabel lifeDescriptionTextArea = new JLabel( "<html>" + member.getLifeDescription()+ "</html>", 10);
 
         
         JLabel personneinfo = new JLabel("informations supplementaires: ");
@@ -705,17 +464,7 @@ public class Application {
         JLabel dateDecesLabel = new JLabel("date deces:");
         JLabel dateDecesTextField = new JLabel(member.getDateDeces(), 10);
         
-        /*JLabel addressInfoLabel = new JLabel("Address Info: ");
-        addressInfoLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
-        JLabel streetNoLabel = new JLabel("Street Number:");
-        JLabel streetNoTextField = new JLabel(member.getAddress().getStreetNumber(), 10);
-        JLabel streetNameLabel = new JLabel("Street Name:");
-        JLabel streetNameTextField = new JLabel(member.getAddress().getStreetName(), 10);
-        JLabel suburbLabel = new JLabel("Suburb");
-        JLabel suburbTextField = new JLabel(member.getAddress().getSuburb(), 10);
-        JLabel postcodeLabel = new JLabel("Postcode");
-        JLabel postcodeTextField = new JLabel(member.getAddress().getPostCode() + "", 10);
-*/
+
         JLabel relativeInfoLabel = new JLabel("Relative Info: ");
         relativeInfoLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
 
@@ -880,11 +629,6 @@ public class Application {
         infoPanel.repaint();
     }
 
-
-    /**
-     * Displays the edit member form
-     * @param member he member to edit
-     */
     private void displayEditMemberInfo(Personne member) {
 
         arbre.setEnabled(false);
@@ -1058,10 +802,6 @@ public class Application {
     
     }
 
-    /**
-     * display the add relative form for a member 
-     * @param member the member to add a relative
-     */
     private void displayAddRelativeInfo(Personne member) {
         arbre.setEnabled(false);
         
@@ -1287,11 +1027,6 @@ public class Application {
         infoPanel.repaint();
     }
 
-    /**
-     * Recursive method to populate the jtree object for each family member of the root person
-     * @param top the node to populate
-     * @param root the member to get the detils from
-     */
     private void createTree(DefaultMutableTreeNode top, Personne root) {
         DefaultMutableTreeNode parents = null;
         DefaultMutableTreeNode father = null;
@@ -1343,10 +1078,7 @@ public class Application {
 
     }
 
-    /**
-     * shows a error dialog containing an error message from a exception 
-     * @param e the exception to get the message from
-     */
+   
     private void showErrorDialog(Exception e) {
         JOptionPane.showMessageDialog(mainFrame, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }

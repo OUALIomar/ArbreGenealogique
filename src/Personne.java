@@ -101,11 +101,11 @@ public class Personne implements Serializable{
 
                 
             }else{
-                throw new IllegalArgumentException("Mother can only be female");
+                throw new IllegalArgumentException("La mère ne peut être qu'une femme");
             }
            
         }else{
-            throw new IllegalArgumentException("Mother already added");
+            throw new IllegalArgumentException("Mére déjà ajouté");
         }
         
 	}
@@ -124,11 +124,11 @@ public class Personne implements Serializable{
 	                
 	                
 	            }else{
-	                throw new IllegalArgumentException("Father can only be male");
+	                throw new IllegalArgumentException("Le père ne peut être qu'un homme");
 	            }
 	            
 	        }else{
-	            throw new IllegalArgumentException("Father already added");
+	            throw new IllegalArgumentException("Pére déjà ajouté");
 	        }
 	}
 
@@ -153,10 +153,10 @@ public class Personne implements Serializable{
 	                }
 
 	            }else{
-	                throw new IllegalArgumentException("Spouse can only be opposite gender");
+	                throw new IllegalArgumentException("Epoux(se) ne peut être que du sexe opposé");
 	            }
 	        }else{
-	            throw new IllegalArgumentException("Spouse already exists");
+	            throw new IllegalArgumentException("Epoux(se) déjà Ajouté");
 	        }
 	}
 	
